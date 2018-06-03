@@ -1,12 +1,14 @@
 /* @flow */
-
+/*
+vue应用基础的部署配置
+*/
 import {
-  no,
-  noop,
-  identity
-} from 'shared/util'
+  no, // 常量
+  noop, // 方法
+  identity      // 常量
+} from 'shared/util'  // 1，同一个文件模块里边可以export多个数据，可以是常量、变量、函数；2，多个数据如何import？
 
-import { LIFECYCLE_HOOKS } from 'shared/constants'
+import { LIFECYCLE_HOOKS } from 'shared/constants' // 数组常量，vue的生命周期描述
 
 export type Config = {
   // user

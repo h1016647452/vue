@@ -12,8 +12,8 @@ import { extend, mergeOptions, formatComponentName } from '../util/index'
 
 let uid = 0
 
-export function initMixin (Vue: Class<Component>) {
-  Vue.prototype._init = function (options?: Object) {
+export function initMixin (Vue: Class<Component>) { // 为什么要在initMixin中才给vue添加一个_init方法？但是在vue的构造方法中可以直接调用this._init方法？
+  Vue.prototype._init = function (options?: Object) { // 给vue对象添加一个_init方法。 prototype 属性可以定义构造函数的属性和方法，还可以为本地对象添加属性和方法。
     const vm: Component = this
     // a uid
     vm._uid = uid++
