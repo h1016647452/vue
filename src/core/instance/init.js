@@ -12,24 +12,24 @@ import { extend, mergeOptions, formatComponentName } from '../util/index'
 
 let uid = 0
 
-export function initMixin (Vue: Class<Component>) { // 为什么要在initMixin中才给vue添加一个_init方法？但是在vue的构造方法中可以直接调用this._init方法？
+export function initMixin (Vue: Class<Component>) { // 在引入vue的index.js文件时，会执行initMixin(Vue)方法，之后再通过new Vue()构造方法来创建vue实例时，会调用下面添加的_init方法。
   Vue.prototype._init = function (options?: Object) { // 给vue对象添加一个_init方法。 prototype 属性可以定义构造函数的属性和方法，还可以为本地对象添加属性和方法。
-    const vm: Component = this
+    const vm: Component = this // this表示window对象？,this赋给vm实例的Component属性
     // a uid
     vm._uid = uid++
 
     let startTag, endTag
     /* istanbul ignore if */
-    if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
+    if (process.env.NODE_ENV !== 'production' && config.performance && mark) { // 判断是否是生产环境&&是否开启前端监控工具(window.performance)&&是否mark
       startTag = `vue-perf-start:${vm._uid}`
       endTag = `vue-perf-end:${vm._uid}`
-      mark(startTag)
+      mark(startTag) // 调用mark函数
     }
 
     // a flag to avoid this being observed
-    vm._isVue = true
+    vm._isVue = true // 被检查？
     // merge options
-    if (options && options._isComponent) {
+    if (options && options._isComponent) { 
       // optimize internal component instantiation
       // since dynamic options merging is pretty slow, and none of the
       // internal component options needs special treatment.
@@ -71,8 +71,8 @@ export function initMixin (Vue: Class<Component>) { // 为什么要在initMixin�
   }
 }
 
-export function initInternalComponent (vm: Component, options: InternalComponentOptions) {
-  const opts = vm.$options = Object.create(vm.constructor.options)
+export function initInternalComponent (vm: Component, options: InternalComponentOptions) { // 初始化内部Component
+  const opts = vm.$options = Object.create(vm.constructor.options) // 创建一个具有与vm对象的原型一致的对象，且该对象只包含指定的options属性。Object.create方法即创建一个具有指定原型且可选择性地包含指定属性的对象。
   // doing this because it's faster than dynamic enumeration.
   const parentVnode = options._parentVnode
   opts.parent = options.parent
