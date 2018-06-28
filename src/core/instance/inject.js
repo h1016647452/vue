@@ -13,7 +13,7 @@ export function initProvide (vm: Component) {
   }
 }
 
-export function initInjections (vm: Component) {
+export function initInjections (vm: Component) { // flow 语法规则：对参数vm做类型约束，即vm需是Component对象
   const result = resolveInject(vm.$options.inject, vm)
   if (result) {
     toggleObserving(false)

@@ -1,3 +1,6 @@
+/*
+eslint的配置文件，定义代码编写风格的规则
+*/
 {
   "root": true,
   "plugins": [

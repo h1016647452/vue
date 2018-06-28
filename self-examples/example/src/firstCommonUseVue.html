@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="utf-8">
+  <head>
+    <script src="../static/js/vue.js"></script>
+  </head>
+  <body>
+    <div id="first">html内容</div>
+  </body>
+  <script>
+    console.dir(Vue)
+    new Vue ({
+      el: "#first",
+      template: '<div>templates属性直接使用html</div>',
+      template: '<App>'
+    })
+  </script>
+<html>

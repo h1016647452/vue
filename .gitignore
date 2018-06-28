@@ -1,3 +1,4 @@
+# 配置git仓库忽略的一些文件，提交时会忽略
 .DS_Store
 node_modules
 *.log

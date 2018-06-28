@@ -4,7 +4,7 @@ export let mark
 export let measure
 
 if (process.env.NODE_ENV !== 'production') {
-  const perf = inBrowser && window.performance // 若window对象是否已实例化且window对象的performance属性不为undefined，则返回window.performance。关于js中的&&运算符，详细见本页最下方法说明。
+  const perf = inBrowser && window.performance // 若window对象是否已实例化且window对象的performance属性不为undefined，则返回window.performance
   /* istanbul ignore if */
   if (
     perf &&
@@ -14,15 +14,19 @@ if (process.env.NODE_ENV !== 'production') {
     perf.clearMeasures
   ) {
     mark = tag => perf.mark(tag) // mark被定义为一个函数，函数体执行 perf.mark(tag)方法
+    //perf.mark: 基于给定的 name在浏览器的性能输入缓冲区中创建一个 timestamp 。 名称作为键和对应的DOMHighResTimeStamp（作为值）保存在一个哈希结构里。该键值对表示了从某一时刻（通常是 navigationStart 事件发生时刻）到记录时刻间隔的毫秒数
     measure = (name, startTag, endTag) => { // 
-      perf.measure(name, startTag, endTag)
-      perf.clearMarks(startTag)
+      //mark及以下几个方法不是window.performance属性本身的方法，而是performance属性的prototype原型对象Performance（Performance是个接口）的方法
+      perf.measure(name, startTag, endTag) // 在浏览器的指定 start mark 和 end mark 间的性能输入缓冲区中创建一个指定的 timestamp
+      perf.clearMarks(startTag) //  从浏览器的性能输入缓冲区中移除给定的 mark
       perf.clearMarks(endTag)
-      perf.clearMeasures(name)
+      perf.clearMeasures(name) // 移除给定的 measure，从浏览器的性能输入缓冲区中
     }
   }
 }
 /*
+知识点
+
 1，js的&&运算符说明 =========================================================
 1）若&&运算符的运算数都是Boolen值，则与平时的处理一样
 2）逻辑 AND 运算的运算数可以是任何类型的，不止是 Boolean 值。
@@ -45,5 +49,9 @@ if (process.env.NODE_ENV !== 'production') {
   NaN                ==》 false
   0                     ==》 false
 特别注意，虽然这些在运算符中当做对应的布尔值处理，但是真正的数据值仍然是本身的数据。
+任何不是 false, undefined, null, 0, NaN 的值，或一个空字符串（''）在作为if条件语句进行测试时实际返回true。但真实的值仍然是自己的值，并没有改变为true或false
+
+2，关于Performace接口
+Performance 接口可以获取到当前页面与性能相关的信息，可以通过调用只读属性 Window.performance 来获得
 
  */

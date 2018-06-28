@@ -1,5 +1,5 @@
 # http://editorconfig.org
-
+# 编辑器的配置（包括编码格式，缩进风格，换行格式）
 root = true
 
 [*]
