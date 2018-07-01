@@ -1,5 +1,6 @@
 <template>
     <div>
+      =====================injectTest1==========================
         <div id="inject-test1">
             provide name： {{name}}
         </div>
@@ -13,7 +14,9 @@
         <div>
             inject1 person: {{injectPerson.name}} - {{injectPerson.sex}}
         </div>
+        <div>
         <el-button type="primary" @click="changeProvide">injectTest子组件修改provide提供的值</el-button>
+        </div>
     </div>
 </template>
 <script>

@@ -16,7 +16,7 @@ export function initProvide (vm: Component) {
 export function initInjections (vm: Component) { // flow 语法规则：对参数vm做类型约束，即vm需是Component对象
   const result = resolveInject(vm.$options.inject, vm)
   if (result) {
-    toggleObserving(false)
+    toggleObserving(false) // 关闭监听
     Object.keys(result).forEach(key => {
       /* istanbul ignore else */
       if (process.env.NODE_ENV !== 'production') {
@@ -32,7 +32,7 @@ export function initInjections (vm: Component) { // flow 语法规则：对参�
         defineReactive(vm, key, result[key])
       }
     })
-    toggleObserving(true)
+    toggleObserving(true) // 启动监听
   }
 }
 
@@ -62,7 +62,7 @@ export function resolveInject (inject: any, vm: Component): ?Object {
         if ('default' in inject[key]) {
           const provideDefault = inject[key].default
           result[key] = typeof provideDefault === 'function'
-            ? provideDefault.call(vm)
+            ? provideDefault.call(vm) // 调用获取默认值得方法，作用域是vm对象内，即vm对象调用
             : provideDefault
         } else if (process.env.NODE_ENV !== 'production') {
           warn(`Injection "${key}" not found`, vm)

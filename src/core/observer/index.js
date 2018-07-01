@@ -136,11 +136,11 @@ export function defineReactive (
   key: string,
   val: any,
   customSetter?: ?Function,
-  shallow?: boolean
+  shallow?: boolean // 浅处理
 ) {
-  const dep = new Dep()
+  const dep = new Dep() // 监听对象
 
-  const property = Object.getOwnPropertyDescriptor(obj, key)
+  const property = Object.getOwnPropertyDescriptor(obj, key) // 属性描述
   if (property && property.configurable === false) {
     return
   }
@@ -152,7 +152,7 @@ export function defineReactive (
     val = obj[key]
   }
 
-  let childOb = !shallow && observe(val)
+  let childOb = !shallow && observe(val) // 是否深度监听，返回监听对象observer
   Object.defineProperty(obj, key, {
     enumerable: true,
     configurable: true,

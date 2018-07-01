@@ -6,6 +6,9 @@
         <div>
             provide person: {{person.name}} - {{person.sex}}
         </div>
+        <div>
+            provide testSymbolvalue: {{s}}
+        </div>
         =============================================
         <div id="inject-test">
             inject name： {{injectName}}
@@ -13,8 +16,12 @@
         <div>
             inject person: {{injectPerson.name}} - {{injectPerson.sex}}
         </div>
+        <div>
+            inject testSymbolvalue: {{s}}
+        </div>
+        <div>
         <el-button type="primary" @click="changeProvide">injectTest子组件修改provide提供的值</el-button>
-        =====================injectTest1==========================
+        </div>
         <inject-test1 v-if="true"></inject-test1>
     </div>
 </template>
@@ -22,7 +29,7 @@
 import injectTest1 from './injectTest1.vue'
 export default {
   name: 'injectTest',
-  inject: ['name', 'person'],
+  inject: ['name', 'person', 's'],
   data () {
     return {
       injectName: this.name,
@@ -37,6 +44,7 @@ export default {
       this.person.sex = 'woman'
       this.injectPerson.name = 'aaa' //
       this.injectPerson.sex = 'aaa' //
+      this.testSymbolvalue = 'aaaaaaaaaaaaa'
     },
     cloneSelfProps (origin) {
       return Object.assign({}, origin)
